@@ -45,7 +45,7 @@
                         <li><a class="dropdown-item" href="/store">My Store</a></li>
                         <li><a class="dropdown-item" href="/orders">My Orders</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                        <li><a class="dropdown-item" href="/logout" id="btnLogout">Logout</a></li>
                     </ul>
                     @endif
                 </div>
@@ -83,4 +83,9 @@
         console.log(totalQty);
     }
     getTotalQty()
+    document.getElementById("btnLogout").addEventListener("click", function () {
+        localStorage.clear();
+    });
+
+    
 </script>

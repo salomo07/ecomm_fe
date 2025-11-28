@@ -195,9 +195,9 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-    <script>
+    <script type="module">
         // Render Tabel Cart
-
+        import { apiFetch } from '/js/fetch.js';
         function updateSummaryCard() {
             let cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
@@ -229,7 +229,7 @@
         function renderCartTable() {
             let cart = JSON.parse(localStorage.getItem("cart") || "[]");
             let tbody = document.getElementById("cartTable");
-            tbody.innerHTML = "";
+            tbody.innerHTML = "<tr><td></td><td></td><td></td><td></td><td></td></tr>";
 
             cart.forEach((product, pIndex) => {
 
@@ -371,6 +371,45 @@
 
         renderCartTable();
         updateSummaryCard();
+        var getCart=()=>{
+            console.log("getCart")
+            if(localStorage.getItem("cart")==null){
+                apiFetch("{{env('API_BASE_URL')}}carts/{{request()->cookie('id_user')}}","{}","GET").then(result => {
+                    console.log(result)
+                    localStorage.setItem("cart", JSON.stringify(convertCart(result.data, "{{request()->cookie('email')}}")));
+                    renderCartTable()
+                }).catch(err => {
+                    console.error("API ERROR:", err);
+                });
+            }
+        }
+        getCart()
+
+        function convertCart(apiCart, userEmail) {
+            let result = [];
+
+            apiCart.cart_items.forEach(item => {
+
+                result.push({
+                    iduser: apiCart.id_user,
+                    email: userEmail,
+                    idproduct: item.id_product,
+                    productname: item.product_name,
+                    productBasicePrice: item.product.basic_price,
+                    attributes: [
+                        {
+                            itemId: item.id_product_attribute,
+                            itemName: item.product_attribute_name,
+                            itemAdjustPrice: 0,
+                            qty: item.qty
+                        }
+                    ]
+                });
+
+            });
+
+            return result;
+        }
     </script>
 
 
