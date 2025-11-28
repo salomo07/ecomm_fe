@@ -44,7 +44,7 @@ class ShopController extends Controller
         if (request()->has('id')) {
             $productId = request()->get('id');
             return view('shop-detail', [
-                'productDetailURL' => env('API_BASE_URL') . 'general-product-detail/' . $productId,"storageURL"=>"http://192.168.99.19:8000/storage/"
+                'productDetailURL' => env('API_BASE_URL') . 'general-product-detail/' . $productId,"sendCartURL"=>env('API_BASE_URL').'cart',
             ]);
         }
         return view('shop', ['productURL'=>env('API_BASE_URL').'general-products','shopData'=>$shopData]);

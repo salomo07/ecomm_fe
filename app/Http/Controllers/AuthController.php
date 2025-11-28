@@ -46,33 +46,22 @@ class AuthController extends Controller
     }
     public function loginView()
     {
-        return view('login', ['loginURL'=>'/login']);
+        return view('login', []);
+    }
+    public function unauthorized()
+    {
+        return view('unauthorized', []);
     }
     public function registerView()
     {
-        return view('register', ['registerURL'=>'/register']);
-    }
-    public function registerProxy(Request $request)
-    {
-        dd($request->all());
-        $payload = $request->only([
-            'name',
-            'email',
-            'password',
-            'role'
-        ]);
-        $response = Http::post(env('API_BASE_URL') . 'register', $payload);
-        // $response = Http::post(env('API_BASE_URL') . 'register', $payload);
-        // if (!$response->successful()) {
-        //     return response()->json($response->json(), $response->status());
-        // }
-
-        // return $response->json();
+        return view('register', ['registerURL'=>env('API_BASE_URL').'register']);
     }
     public function logout()
     {
         Cookie::queue(Cookie::forget('auth_token'));
         Cookie::queue(Cookie::forget('role'));
+        Cookie::queue(Cookie::forget('name'));
+        Cookie::queue(Cookie::forget('email'));
         return redirect('/login');
     }
     public function loginProxy(Request $request)
@@ -102,6 +91,45 @@ class AuthController extends Controller
             Cookie::make(
                 'role',
                 $data['role'],
+                60 * 24 * 7,
+                '/',
+                'localhost', // domain Web A
+                true,
+                true,
+                false,
+                'Strict'
+            )
+        );
+        Cookie::queue(
+            Cookie::make(
+                'name',
+                $data['name'],
+                60 * 24 * 7,
+                '/',
+                'localhost', // domain Web A
+                true,
+                true,
+                false,
+                'Strict'
+            )
+        );
+        Cookie::queue(
+            Cookie::make(
+                'id_user',
+                $data['id_user'],
+                60 * 24 * 7,
+                '/',
+                'localhost', // domain Web A
+                true,
+                true,
+                false,
+                'Strict'
+            )
+        );
+        Cookie::queue(
+            Cookie::make(
+                'email',
+                $data['email'],
                 60 * 24 * 7,
                 '/',
                 'localhost', // domain Web A

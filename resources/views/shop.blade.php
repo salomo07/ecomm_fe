@@ -3,7 +3,7 @@
     
     <head>
         <meta charset="utf-8">
-        <title>Fruitables - Vegetable Website Template</title>
+        <title>{{env('APP_NAME')}} - Shop</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
@@ -364,7 +364,7 @@
                             <div class="fruite-img">
                                 <img 
                                     src="${p.attributes.length > 0 
-                                        ? 'http://192.168.99.19/storage/' + p.attributes[0].image 
+                                        ? '{{env('API_IMAGE_URL')}}/' + p.attributes[0].image 
                                         : '/img/featur-1.jpg'}"
                                     class="img-fluid w-100 rounded-top"
                                     alt="${p.name}'s image"
@@ -384,7 +384,12 @@
                                 <!-- Text Block (Fixed Height) -->
                                 <div class="card-text-section">
                                     <h4>${p.name}</h4>
-                                    <p>${p.description ?? ''}</p>
+                                    <p style="display: -webkit-box;
+                                        -webkit-line-clamp: 10;
+                                        -webkit-box-orient: vertical;
+                                        overflow: hidden;
+                                        max-height: 100p
+                                    ">${p.description ?? ''}</p>
                                 </div>
 
                                 <!-- Spacer pushes price to bottom -->

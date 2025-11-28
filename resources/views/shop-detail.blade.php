@@ -3,7 +3,7 @@
     
     <head>
         <meta charset="utf-8">
-        <title>Fruitables - Vegetable Website Template</title>
+        <title>{{env('APP_NAME')}} - Shop Detail</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
@@ -27,7 +27,36 @@
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
-        
+        <style>
+            /* Center wrapper carousel */
+            #attributeCarousel {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            /* Atur ukuran gambar */
+            .carousel-item img {
+                width: 350px;        /* ubah sesuai kebutuhan */
+                height: 350px;       /* kotak */
+                object-fit: cover;   /* agar gambar rapi */
+                margin: auto;        /* center */
+                border-radius: 12px;
+            }
+
+            /* Agar tombol next/prev lebih kecil & tidak menutupi gambar */
+            .carousel-control-prev-icon,
+            .carousel-control-next-icon {
+                filter: invert(1); /* ubah jadi putih */
+                width: 25px;
+                height: 25px;
+            }
+
+            .carousel-control-prev,
+            .carousel-control-next {
+                width: 5%;
+            }
+        </style>
     </head>
 
     <body>
@@ -47,16 +76,9 @@
         <div class="container-fluid fruite py-5 mt-5">
             <div class="container py-5 ">
                 <div class="row g-4 mb-5">
-                    <div class="col-lg-8 col-xl-9">
+                    <div class="col-lg-12 col-xl-12">
                         <div class="row g-4">
-                            <!-- <div class="col-lg-6">
-                                <div class="border rounded">
-                                    <a href="#">
-                                        <img src="img/single-item.jpg" class="img-fluid rounded" alt="Image">
-                                    </a>
-                                </div>
-                            </div> -->
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div id="attributeCarousel" class="carousel slide" data-bs-ride="carousel">
                                     <div class="carousel-inner" id="carouselImages"></div>
 
@@ -150,8 +172,21 @@
                                                     <div id="variantContainer"></div>
                                                     
                                                 </div>
-                                                    <a href="#" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                                <div class="col-12 mt-4 text-center">
+                                                    <a id="btnKeranjang"
+                                                    class="btn border border-secondary rounded-pill px-4 py-2 mb-3 text-primary me-2">
+                                                        <i class="fa fa-shopping-basket me-2 text-primary" ></i>
+                                                        + Keranjang
+                                                    </a>
 
+                                                    <a href="#"
+                                                    class="btn rounded-pill px-4 py-2 mb-3 text-white"
+                                                    style="background-color: #28a745;">
+                                                        <i class="fa fa-bolt me-2 text-white"></i>
+                                                        Beli Langsung
+                                                    </a>
+
+                                                </div>
 
                                             </div>
                                         </div>
@@ -204,296 +239,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-xl-3">
-                        <div class="row g-4 fruite">
-                            <div class="col-lg-12">
-                                <div class="input-group w-100 mx-auto d-flex mb-4">
-                                    <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
-                                    <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-                                </div>
-                                <div class="mb-4">
-                                    <h4>Categories</h4>
-                                    <ul class="list-unstyled fruite-categorie">
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Apples</a>
-                                                <span>(3)</span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Oranges</a>
-                                                <span>(5)</span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Strawbery</a>
-                                                <span>(2)</span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Banana</a>
-                                                <span>(8)</span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex justify-content-between fruite-name">
-                                                <a href="#"><i class="fas fa-apple-alt me-2"></i>Pumpkin</a>
-                                                <span>(5)</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <h4 class="mb-4">Featured products</h4>
-                                <div class="d-flex align-items-center justify-content-start">
-                                    <div class="rounded" style="width: 100px; height: 100px;">
-                                        <img src="img/featur-1.jpg" class="img-fluid rounded" alt="Image">
-                                    </div>
-                                    <div>
-                                        <h6 class="mb-2">Big Banana</h6>
-                                        <div class="d-flex mb-2">
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <div class="d-flex mb-2">
-                                            <h5 class="fw-bold me-2">2.99 $</h5>
-                                            <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-start">
-                                    <div class="rounded" style="width: 100px; height: 100px;">
-                                        <img src="img/featur-2.jpg" class="img-fluid rounded" alt="">
-                                    </div>
-                                    <div>
-                                        <h6 class="mb-2">Big Banana</h6>
-                                        <div class="d-flex mb-2">
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <div class="d-flex mb-2">
-                                            <h5 class="fw-bold me-2">2.99 $</h5>
-                                            <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-start">
-                                    <div class="rounded" style="width: 100px; height: 100px;">
-                                        <img src="img/featur-3.jpg" class="img-fluid rounded" alt="">
-                                    </div>
-                                    <div>
-                                        <h6 class="mb-2">Big Banana</h6>
-                                        <div class="d-flex mb-2">
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <div class="d-flex mb-2">
-                                            <h5 class="fw-bold me-2">2.99 $</h5>
-                                            <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-start">
-                                    <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                        <img src="img/vegetable-item-4.jpg" class="img-fluid rounded" alt="">
-                                    </div>
-                                    <div>
-                                        <h6 class="mb-2">Big Banana</h6>
-                                        <div class="d-flex mb-2">
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <div class="d-flex mb-2">
-                                            <h5 class="fw-bold me-2">2.99 $</h5>
-                                            <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-start">
-                                    <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                        <img src="img/vegetable-item-5.jpg" class="img-fluid rounded" alt="">
-                                    </div>
-                                    <div>
-                                        <h6 class="mb-2">Big Banana</h6>
-                                        <div class="d-flex mb-2">
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <div class="d-flex mb-2">
-                                            <h5 class="fw-bold me-2">2.99 $</h5>
-                                            <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-start">
-                                    <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                        <img src="img/vegetable-item-6.jpg" class="img-fluid rounded" alt="">
-                                    </div>
-                                    <div>
-                                        <h6 class="mb-2">Big Banana</h6>
-                                        <div class="d-flex mb-2">
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star text-secondary"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
-                                        <div class="d-flex mb-2">
-                                            <h5 class="fw-bold me-2">2.99 $</h5>
-                                            <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-center my-4">
-                                    <a href="#" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Vew More</a>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="position-relative">
-                                    <img src="img/banner-fruits.jpg" class="img-fluid w-100 rounded" alt="">
-                                    <div class="position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);">
-                                        <h3 class="text-secondary fw-bold">Fresh <br> Fruits <br> Banner</h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <h1 class="fw-bold mb-0">Related products</h1>
-                <div class="vesitable">
-                    <div class="owl-carousel vegetable-carousel justify-content-center">
-                        <div class="border border-primary rounded position-relative vesitable-item">
-                            <div class="vesitable-img">
-                                <img src="img/vegetable-item-6.jpg" class="img-fluid w-100 rounded-top" alt="">
-                            </div>
-                            <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
-                            <div class="p-4 pb-0 rounded-bottom">
-                                <h4>Parsely</h4>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                    <p class="text-dark fs-5 fw-bold">$4.99 / kg</p>
-                                    <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="border border-primary rounded position-relative vesitable-item">
-                            <div class="vesitable-img">
-                                <img src="img/vegetable-item-1.jpg" class="img-fluid w-100 rounded-top" alt="">
-                            </div>
-                            <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
-                            <div class="p-4 pb-0 rounded-bottom">
-                                <h4>Parsely</h4>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                    <p class="text-dark fs-5 fw-bold">$4.99 / kg</p>
-                                    <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="border border-primary rounded position-relative vesitable-item">
-                            <div class="vesitable-img">
-                                <img src="img/vegetable-item-3.png" class="img-fluid w-100 rounded-top bg-light" alt="">
-                            </div>
-                            <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
-                            <div class="p-4 pb-0 rounded-bottom">
-                                <h4>Banana</h4>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                    <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                                    <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="border border-primary rounded position-relative vesitable-item">
-                            <div class="vesitable-img">
-                                <img src="img/vegetable-item-4.jpg" class="img-fluid w-100 rounded-top" alt="">
-                            </div>
-                            <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
-                            <div class="p-4 pb-0 rounded-bottom">
-                                <h4>Bell Papper</h4>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                    <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                                    <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="border border-primary rounded position-relative vesitable-item">
-                            <div class="vesitable-img">
-                                <img src="img/vegetable-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
-                            </div>
-                            <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
-                            <div class="p-4 pb-0 rounded-bottom">
-                                <h4>Potatoes</h4>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                    <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                                    <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="border border-primary rounded position-relative vesitable-item">
-                            <div class="vesitable-img">
-                                <img src="img/vegetable-item-6.jpg" class="img-fluid w-100 rounded-top" alt="">
-                            </div>
-                            <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
-                            <div class="p-4 pb-0 rounded-bottom">
-                                <h4>Parsely</h4>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                    <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                                    <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="border border-primary rounded position-relative vesitable-item">
-                            <div class="vesitable-img">
-                                <img src="img/vegetable-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
-                            </div>
-                            <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
-                            <div class="p-4 pb-0 rounded-bottom">
-                                <h4>Potatoes</h4>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                    <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                                    <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="border border-primary rounded position-relative vesitable-item">
-                            <div class="vesitable-img">
-                                <img src="img/vegetable-item-6.jpg" class="img-fluid w-100 rounded-top" alt="">
-                            </div>
-                            <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">Vegetable</div>
-                            <div class="p-4 pb-0 rounded-bottom">
-                                <h4>Parsely</h4>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                    <p class="text-dark fs-5 fw-bold">$7.99 / kg</p>
-                                    <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -517,34 +262,39 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script type="module">
-        var isLoadingProduct = false;
-        isLoadingProduct = true;
         var id = new URLSearchParams(window.location.search).get('id')
         import { apiFetch } from '/js/fetch.js';
+        var product;
         var getProductDetail = (product) => {
             console.log(product)
             document.getElementById("productName").innerText = product.name;
             document.getElementById("productCat").innerText = product.category.name;
             document.getElementById("productPrice").innerText = "Rp."+product.basic_price;
             document.getElementById("productDesc").innerText = product.description;
-            getIsiTable(product.attributes);
+            getIsiTable(product, product.attributes);
             loadCarouselImages(product.attributes)
         };
         await apiFetch("{{$productDetailURL}}","{}","GET").then(result => {
             getProductDetail(result.data) 
+            product = result.data;
         }).catch(err => {
             console.error("API ERROR:", err);
         });
-        // isLoadingProduct = false;
         
 
-        function getIsiTable(attributes) {
+        function getIsiTable(prod) {
+            var attributes =prod.attributes
             let container = document.getElementById("variantContainer");
             container.innerHTML = ""; // reset
 
             attributes.forEach(attr => {
                 container.innerHTML += `
                     <div class="row text-center align-items-center py-2 border-bottom">
+                        <input type="hidden" class="itemId" value="${attr.id ?? '-'}">
+                        <input type="hidden" class="itemName" value="${attr.name ?? '-'}">
+                        <input type="hidden" class="productId" value="${prod.id ?? '-'}">
+                        <input type="hidden" class="productName" value="${prod.name ?? '-'}">
+                        <input type="hidden" class="itemAdjustPrice" value="${attr.price_adjustment ?? '-'}">
                         <div class="col-2">${attr.type ?? '-'}</div>
                         <div class="col-2">${attr.name ?? '-'}</div>
                         <div class="col-2">Rp ${Number(attr.price_adjustment || 0).toLocaleString()}</div>
@@ -556,7 +306,6 @@
                                 class="form-control text-center" 
                                 min="0" 
                                 max="${attr.qty ?? 0}" 
-                                value="0"
                                 style="width: 70px; margin: auto;"
                             >
                         </div>
@@ -571,13 +320,145 @@
             attributes.forEach((attr, index) => {
                 html += `
                     <div class="carousel-item ${index === 0 ? 'active' : ''}">
-                        <img src="{{$storageURL}}${attr.image}" class="d-block w-100 rounded" alt="${attr.name}">
+                        <img src="{{env('API_IMAGE_URL')}}${attr.image}" class="d-block rounded" alt="${attr.name}">
                     </div>
                 `;
             });
 
             document.getElementById("carouselImages").innerHTML = html;
         }
+
+        document.getElementById("btnKeranjang").addEventListener("click", function () {
+            let rows = document.querySelectorAll("#variantContainer .row");
+            let items = [];
+
+            // KUMPULKAN ATTRIBUTE YANG QTY > 0
+            rows.forEach(row => {
+                let itemId = row.querySelector(".itemId")?.value;
+                let itemName = row.querySelector(".itemName")?.value;
+                let itemAdjustPrice = row.querySelector(".itemAdjustPrice")?.value;
+
+                let qtyInput = row.querySelector("input[type='number']");
+                let qty = parseInt(qtyInput.value || 0);
+
+                if (qty > 0) {
+                    items.push({
+                        itemId: Number(itemId),
+                        itemName: itemName,
+                        itemAdjustPrice:Number(itemAdjustPrice),
+                        qty: Number(qty)
+                    });
+                }
+            });
+
+            // ⛔ Tidak ada yang diinput
+            if (items.length === 0) {
+                alert("Silahkan masukkan qty terlebih dahulu")
+                console.log("Tidak ada qty > 0");
+                return;
+            }
+
+            // DATA PRODUCT BARU
+            let productCart = {
+                iduser: "{{request()->cookie('id_user')}}",
+                email: "{{request()->cookie('email')}}",
+                idproduct: product.id,
+                productname: product.name,
+                productBasicePrice: product.basic_price,
+                attributes: items
+            };
+
+            // ============================
+            // UPDATE LOCALSTORAGE CART
+            // ============================
+            let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+            // CARI PRODUCT YANG SAMA
+            let existing = cart.find(p => p.idproduct == productCart.idproduct);
+
+            if (!existing) {
+
+                // ➕ PRODUCT BELUM ADA → PUSH LANGSUNG
+                cart.push(productCart);
+
+            } else {
+
+                // 🔄 PRODUCT SUDAH ADA → UPDATE ATTRIBUTE
+
+                productCart.attributes.forEach(newAttr => {
+
+                    let existingAttr = existing.attributes.find(a => a.itemId == newAttr.itemId);
+
+                    if (existingAttr) {
+                        // ATTRIBUTE SAMA → TAMBAHKAN QTY
+                        existingAttr.qty += newAttr.qty;
+                    } else {
+                        // ATTRIBUTE BARU → MASUKKAN
+                        existing.attributes.push(newAttr);
+                    }
+
+                });
+            }
+
+            // SIMPAN KEMBALI KE LOCAL STORAGE
+            localStorage.setItem("cart", JSON.stringify(cart));
+            var cartToBE = {
+
+            }
+            console.log("UPDATED CART:", cart, JSON.stringify(cart));
+
+            console.log("FINAL FORMAT:", convertCartFormat(cart));
+            alert("Product ditambahkan ke keranjang")
+            getTotalQty()
+            sendCartToBE(convertCartFormat(cart))
+        });
+        function sendCartToBE(dataCart) {
+            apiFetch("{{$sendCartURL}}",JSON.stringify(dataCart),"POST").then(result => {
+                console.log(result)
+            }).catch(err => {
+                console.error("API ERROR:", err);
+            });
+        }
+        function convertCartFormat(oldCart) {
+            if (!Array.isArray(oldCart) || oldCart.length === 0) {
+                return null;
+            }
+
+            let first = oldCart[0]; // Karena format lama hanya 1 user per cart
+
+            let newCart = {
+                iduser: Number(first.iduser || 0),
+                email: first.email || "",
+                products: []
+            };
+
+            oldCart.forEach(prod => {
+                let cleanProduct = {
+                    idproduct: prod.idproduct,
+                    productname: prod.productname,
+                    attributes: []
+                };
+
+                prod.attributes.forEach(attr => {
+                    // Abaikan attribute yg qty kosong atau nol
+                    if (!attr.qty || attr.qty <= 0) return;
+
+                    cleanProduct.attributes.push({
+                        itemId: Number(attr.itemId),
+                        itemName: attr.itemName,
+                        qty: Number(attr.qty)
+                    });
+                });
+
+                if (cleanProduct.attributes.length > 0) {
+                    newCart.products.push(cleanProduct);
+                }
+            });
+
+            return newCart;
+        }
+
+        
     </script>
     </body>
 

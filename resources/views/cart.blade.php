@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>Fruitables - Vegetable Website Template</title>
+        <title>{{env('APP_NAME')}} - Cart</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
@@ -51,157 +51,37 @@
         <div class="container-fluid py-5 fruite">
             <div class="container py-5">
                 <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                          <tr>
-                            <th scope="col">Products</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Total</th>
-                            <th scope="col">Handle</th>
-                          </tr>
+                    <table class="table table-bordered align-middle" style="border-color:#eee;">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 30%">Product</th>
+                                <th style="width: 30%">Variant</th>
+                                <th style="width: 10%">Pilih</th>
+                                <th style="width: 20%">Qty</th>
+                                <th style="width: 10%">Action</th>
+                            </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">
-                                    <div class="d-flex align-items-center">
-                                        <img src="img/vegetable-item-3.png" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
-                                    </div>
-                                </th>
-                                <td>
-                                    <p class="mb-0 mt-4">Big Banana</p>
-                                </td>
-                                <td>
-                                    <p class="mb-0 mt-4">2.99 $</p>
-                                </td>
-                                <td>
-                                    <div class="input-group quantity mt-4" style="width: 100px;">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-sm btn-minus rounded-circle bg-light border" >
-                                            <i class="fa fa-minus"></i>
-                                            </button>
-                                        </div>
-                                        <input type="text" class="form-control form-control-sm text-center border-0" value="1">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                                <i class="fa fa-plus"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <p class="mb-0 mt-4">2.99 $</p>
-                                </td>
-                                <td>
-                                    <button class="btn btn-md rounded-circle bg-light border mt-4" >
-                                        <i class="fa fa-times text-danger"></i>
-                                    </button>
-                                </td>
-                            
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <div class="d-flex align-items-center">
-                                        <img src="img/vegetable-item-5.jpg" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="" alt="">
-                                    </div>
-                                </th>
-                                <td>
-                                    <p class="mb-0 mt-4">Potatoes</p>
-                                </td>
-                                <td>
-                                    <p class="mb-0 mt-4">2.99 $</p>
-                                </td>
-                                <td>
-                                    <div class="input-group quantity mt-4" style="width: 100px;">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-sm btn-minus rounded-circle bg-light border" >
-                                            <i class="fa fa-minus"></i>
-                                            </button>
-                                        </div>
-                                        <input type="text" class="form-control form-control-sm text-center border-0" value="1">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                                <i class="fa fa-plus"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <p class="mb-0 mt-4">2.99 $</p>
-                                </td>
-                                <td>
-                                    <button class="btn btn-md rounded-circle bg-light border mt-4" >
-                                        <i class="fa fa-times text-danger"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <div class="d-flex align-items-center">
-                                        <img src="img/vegetable-item-2.jpg" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="" alt="">
-                                    </div>
-                                </th>
-                                <td>
-                                    <p class="mb-0 mt-4">Awesome Brocoli</p>
-                                </td>
-                                <td>
-                                    <p class="mb-0 mt-4">2.99 $</p>
-                                </td>
-                                <td>
-                                    <div class="input-group quantity mt-4" style="width: 100px;">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-sm btn-minus rounded-circle bg-light border" >
-                                            <i class="fa fa-minus"></i>
-                                            </button>
-                                        </div>
-                                        <input type="text" class="form-control form-control-sm text-center border-0" value="1">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                                <i class="fa fa-plus"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <p class="mb-0 mt-4">2.99 $</p>
-                                </td>
-                                <td>
-                                    <button class="btn btn-md rounded-circle bg-light border mt-4" >
-                                        <i class="fa fa-times text-danger"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
+                        <tbody id="cartTable" style="background: #fcfcff;"></tbody>
                     </table>
-                </div>
-                <div class="mt-5">
-                    <input type="text" class="border-0 border-bottom rounded me-5 py-3 mb-4" placeholder="Coupon Code">
-                    <button class="btn border-secondary rounded-pill px-4 py-3 text-primary" type="button">Apply Coupon</button>
                 </div>
                 <div class="row g-4 justify-content-end">
                     <div class="col-8"></div>
                     <div class="col-sm-8 col-md-7 col-lg-6 col-xl-4">
-                        <div class="bg-light rounded">
-                            <div class="p-4">
-                                <h1 class="display-6 mb-4">Cart <span class="fw-normal">Total</span></h1>
-                                <div class="d-flex justify-content-between mb-4">
-                                    <h5 class="mb-0 me-4">Subtotal:</h5>
-                                    <p class="mb-0">$96.00</p>
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <h5 class="mb-0 me-4">Shipping</h5>
-                                    <div class="">
-                                        <p class="mb-0">Flat rate: $3.00</p>
-                                    </div>
-                                </div>
-                                <p class="mb-0 text-end">Shipping to Ukraine.</p>
+                        <div class="bg-white rounded shadow-sm p-4" id="summaryCard">
+
+                            <h5 class="fw-bold mb-3">Total Belanja</h5>
+
+                            <div class="d-flex justify-content-between mb-2">
+                                <center><span id="totalPrice"></span></center>
                             </div>
-                            <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
-                                <h5 class="mb-0 ps-4 me-4">Total</h5>
-                                <p class="mb-0 pe-4">$99.00</p>
-                            </div>
-                            <button class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" type="button">Proceed Checkout</button>
+
+                            <hr>
+
+                            <a href="/checkout" id="btnCheckout"
+                                class="btn w-100 py-2 mt-2"
+                                disabled style="background-color:#81c408">
+                                Checkout
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -217,7 +97,7 @@
                     <div class="row g-4">
                         <div class="col-lg-3">
                             <a href="#">
-                                <h1 class="text-primary mb-0">Fruitables</h1>
+                                <h1 class="text-primary mb-0">{{env('APP_NAME')}}</h1>
                                 <p class="text-secondary mb-0">Fresh products</p>
                             </a>
                         </div>
@@ -301,8 +181,6 @@
         </div>
         <!-- Copyright End -->
 
-
-
         <!-- Back to Top -->
         <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
 
@@ -318,11 +196,222 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script>
-        // convert php array -> json
-        const shopData = @json($cartData);
+        // Render Tabel Cart
 
-        console.log(shopData);
-        
+        function updateSummaryCard() {
+            let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+            let totalProducts = 0;
+            let totalQty = 0;
+            let total = 0;
+            cart.forEach(p => {
+                p.attributes.forEach(a => {
+                    if (a.checked) {
+                        totalProducts++;
+                        totalQty += parseInt(a.qty);
+                    }
+                });
+
+                const basic = p.productBasicePrice;                
+
+                p.attributes.forEach(att => {
+                    if (att.checked) {
+                        const pricePerItem = basic + att.itemAdjustPrice;
+                        total += pricePerItem * att.qty;
+                    }
+                });
+            });
+
+            document.getElementById("totalPrice").innerText = "Rp. "+Number(total).toLocaleString('id-ID');
+            getTotalQty()
+            console.log("updateSummaryCard")
+        }
+        function renderCartTable() {
+            let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+            let tbody = document.getElementById("cartTable");
+            tbody.innerHTML = "";
+
+            cart.forEach((product, pIndex) => {
+
+                // Row header Product Name
+                let productRow = document.createElement("tr");
+                productRow.classList.add("product-header-row");
+                productRow.innerHTML = `
+                    <td colspan="5" class="py-3 px-3">
+                        <b class="fs-5"><i class="fa fa-box text-primary me-2"></i> ${product.productname} (@${Number(product.productBasicePrice).toLocaleString('id-ID')})</b>
+                    </td>
+                `;
+                tbody.appendChild(productRow);
+
+                // Anak atribut
+                product.attributes.forEach((attr, aIndex) => {
+                    let row = document.createElement("tr");
+                    row.classList.add("variant-row");
+                    row.innerHTML = `
+                        <td></td>
+
+                        <!-- Nama atribut -->
+                        <td class="py-3" style"overflow:">${attr.itemName} ${Number(attr.itemAdjustPrice)!=0?Number(attr.itemAdjustPrice):""}</td>
+
+                        <!-- Checkbox pilih -->
+                        <td class="py-3 text-center">
+                            <input type="checkbox" class="form-check-input attr-check"
+                                data-product="${pIndex}" data-attr="${aIndex}"
+                                ${attr.checked ? "checked" : ""}>
+                        </td>
+
+                        <!-- Qty dengan tombol - + -->
+                        <td class="py-3">
+                            <div class="qty-group">
+                                <button class="qty-btn minus"
+                                    data-product="${pIndex}" data-attr="${aIndex}">-</button>
+
+                                <input type="number" min="1"
+                                    value="${attr.qty}"
+                                    class="qty-input"
+                                    data-product="${pIndex}" data-attr="${aIndex}">
+
+                                <button class="qty-btn plus"
+                                    data-product="${pIndex}" data-attr="${aIndex}">+</button>
+                            </div>
+                        </td>
+
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-danger delete-attr"
+                                data-product="${pIndex}" data-attr="${aIndex}">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            });
+
+            attachEvents();
+        }
+
+        // Event Listener
+        function attachEvents() {
+
+            let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+            // Checkbox
+            document.querySelectorAll(".attr-check").forEach(chk => {
+                chk.addEventListener("change", function () {
+                    let p = this.dataset.product;
+                    let a = this.dataset.attr;
+                    cart[p].attributes[a].checked = this.checked;
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                    updateSummaryCard();
+                });
+            });
+
+            // Input qty manual
+            document.querySelectorAll(".qty-input").forEach(inp => {
+                inp.addEventListener("change", function () {
+                    let p = this.dataset.product;
+                    let a = this.dataset.attr;
+                    let val = parseInt(this.value);
+
+                    if (val < 1) val = 1;
+                    this.value = val;
+
+                    cart[p].attributes[a].qty = val;
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                    updateSummaryCard();
+                });
+            });
+
+            // Tombol + qty
+            document.querySelectorAll(".qty-btn.plus").forEach(btn => {
+                btn.addEventListener("click", function () {
+                    let p = this.dataset.product;
+                    let a = this.dataset.attr;
+
+                    cart[p].attributes[a].qty++;
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                    updateSummaryCard();
+                    renderCartTable();
+                });
+            });
+
+            // Tombol - qty
+            document.querySelectorAll(".qty-btn.minus").forEach(btn => {
+                btn.addEventListener("click", function () {
+                    let p = this.dataset.product;
+                    let a = this.dataset.attr;
+
+                    if (cart[p].attributes[a].qty > 1) {
+                        cart[p].attributes[a].qty--;
+                        localStorage.setItem("cart", JSON.stringify(cart));
+                    }
+                    updateSummaryCard();
+                    renderCartTable();
+                });
+            });
+
+            // Hapus atribut
+            document.querySelectorAll(".delete-attr").forEach(btn => {
+                btn.addEventListener("click", function () {
+                    let p = this.dataset.product;
+                    let a = this.dataset.attr;
+
+                    cart[p].attributes.splice(a, 1);
+
+                    if (cart[p].attributes.length === 0) {
+                        cart.splice(p, 1);
+                    }
+
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                    renderCartTable();
+                    updateSummaryCard();
+                });
+            });
+        }
+
+        renderCartTable();
+        updateSummaryCard();
     </script>
+
+
+    <style>
+        .product-header-row {
+            background: #eef3ff;
+            border-left: 4px solid #4e73df;
+            font-weight: bold;
+        }
+
+        .variant-row td {
+            background: #fafbff;
+            border-color: #eee;
+        }
+
+        .qty-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .qty-btn {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #ced4da;
+            background: #fff;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .qty-btn:hover {
+            background: #e2e6ea;
+        }
+
+        .qty-input {
+            width: 55px;
+            text-align: center;
+            border-radius: 6px;
+        }
+    </style>
+
     </body>
 </html>

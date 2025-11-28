@@ -4,7 +4,7 @@
    <meta charset="utf-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1">
-   <title>Fruitables - Login</title>
+   <title>{{env('APP_NAME')}} - Login</title>
 
    <link rel="stylesheet" href="css/bootstrap.min.css" />
 
@@ -85,6 +85,7 @@
       </div>
 
       <button class="btn btn-login w-100 text-white mt-3">Login</button>
+      <a href="/shop" class="btn w-100 mt-3" style="color:#28a745; border:1px solid #28a745;">Lanjut Belanja</a>
    </form>
 </div>
 
@@ -106,21 +107,24 @@ document.querySelector("form").addEventListener("submit", async function (e) {
       password: password
    });
 
-   await apiFetch("{{ $loginURL }}", raw, "POST").then(result => {
+   await apiFetch("login", raw, "POST").then(result => {
       if (result.success) {
          localStorage.setItem("loginData", JSON.stringify(result.data));
 
          if (result.data.role == 1) {
                alert("Silahkan login melalui dashboard admin");
          } else {
+            console.log(result)
                setTimeout(() => {
                   window.location.href = "/";
-               }, 1500);
+               }, 5000);
          }
       } else {
          alert("Login gagal!");
       }
    }).catch(err => {
+      alert('Gagal login, silahkan ulangi atau lanjutkan belanja')
+      alert(JSON.stringify(err))
       console.error("API ERROR:", err);
    });
 });

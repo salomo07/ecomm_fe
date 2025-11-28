@@ -20,4 +20,5 @@ Route::get('/logout', [AuthController::class, 'logout']);
 Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::get('/products', [ProductController::class, 'index'])->name('products')->middleware('role:3');
-Route::get('/store', [ProductController::class, 'store'])->name('store')->middleware('role:3');
+Route::get('/store', [ProductController::class, 'store'])->name('store');
+Route::get('/unauthorized', [AuthController::class, 'unauthorized'])->name('unauthorized');

@@ -4,7 +4,7 @@
    <meta charset="utf-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1">
-   <title>Fruitables - Register</title>
+   <title>{{env('APP_NAME')}} - Register</title>
 
    <link rel="stylesheet" href="css/bootstrap.min.css" />
 
@@ -96,6 +96,7 @@
       </div>
 
       <button class="btn btn-register w-100 text-white mt-3">Registrasi</button>
+      <a href="/shop" class="btn w-100 mt-3" style="color:#28a745; border:1px solid #28a745;">Lanjut Belanja</a>
    </form>
 </div>
 
@@ -125,37 +126,37 @@ document.getElementById("registerForm").addEventListener("submit", async functio
       "password": password,
       "role": 2
    });
-   // await apiFetch("{{ $registerURL }}", raw, "POST")
-   // .then(result => {
-   //    if(result.success){
-   //       alert("Registrasi berhasil! Silakan login.");
-   //       setTimeout(() => {
-   //          // window.location.href = "/login";
-   //       }, 1500);
-   //    } else {
-   //       alert(result.message ?? "Registrasi gagal!");
-   //    }
-   // })
-   // .catch(err => {
-   //    console.error("API ERROR:", err);
-   // });
-   await fetch("{{ $registerURL }}", {
-      method: "POST",
-      headers: {
-         "Content-Type": "application/json",
-         "Accept": "application/json"
-      },
-      body: JSON.stringify({
-         name,
-         email,
-         password,
-         role: 2
-      })
+   await apiFetch("{{ $registerURL }}", raw, "POST")
+   .then(result => {
+      if(result.success){
+         alert("Registrasi berhasil! Silakan login.");
+         setTimeout(() => {
+            // window.location.href = "/login";
+         }, 1500);
+      } else {
+         alert(result.message ?? "Registrasi gagal!");
+      }
    })
-   .then(res => res.json())
-   .then(result => console.log(result))
-   .catch(err => console.error(err));
-});
+   .catch(err => {
+      console.error("API ERROR:", err);
+   });
+   // await fetch("{{ $registerURL }}", {
+   //       method: "POST",
+   //       headers: {
+   //          "Content-Type": "application/json",
+   //          "Accept": "application/json"
+   //       },
+   //       body: JSON.stringify({
+   //          name,
+   //          email,
+   //          password,
+   //          role: 2
+   //       })
+   //    })
+   //    .then(res => res.json())
+   //    .then(result => console.log(result))
+   //    .catch(err => console.error(err));
+   // });
 </script>
 
 </body>
