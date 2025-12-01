@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Cookie;
 
 class AuthController extends Controller
 {
@@ -56,90 +55,35 @@ class AuthController extends Controller
     {
         return view('register', ['registerURL'=>env('API_BASE_URL').'register']);
     }
-    public function logout()
+    public function logout(Request $request)
     {
-        Cookie::queue(Cookie::forget('auth_token'));
-        Cookie::queue(Cookie::forget('role'));
-        Cookie::queue(Cookie::forget('name'));
-        Cookie::queue(Cookie::forget('email'));
+        $request->session()->flush();
         return redirect('/login');
     }
     public function loginProxy(Request $request)
     {
         $payload = $request->only(['email', 'password']);
         $response = Http::post(env('API_BASE_URL') . 'login', $payload);
+
         if (!$response->successful()) {
             return response()->json($response->json(), $response->status());
         }
 
         $data = $response->json()['data'];
-        // Cookie::queue('auth_token', $data['token'], 60 * 24 * 7);
-        Cookie::queue(
-            Cookie::make(
-                'auth_token',
-                $data['token'],
-                60 * 24 * 7,
-                '/',
-                'localhost', // domain Web A
-                true,
-                true,
-                false,
-                'Strict'
-            )
-        );
-        Cookie::queue(
-            Cookie::make(
-                'role',
-                $data['role'],
-                60 * 24 * 7,
-                '/',
-                'localhost', // domain Web A
-                true,
-                true,
-                false,
-                'Strict'
-            )
-        );
-        Cookie::queue(
-            Cookie::make(
-                'name',
-                $data['name'],
-                60 * 24 * 7,
-                '/',
-                'localhost', // domain Web A
-                true,
-                true,
-                false,
-                'Strict'
-            )
-        );
-        Cookie::queue(
-            Cookie::make(
-                'id_user',
-                $data['id_user'],
-                60 * 24 * 7,
-                '/',
-                'localhost', // domain Web A
-                true,
-                true,
-                false,
-                'Strict'
-            )
-        );
-        Cookie::queue(
-            Cookie::make(
-                'email',
-                $data['email'],
-                60 * 24 * 7,
-                '/',
-                'localhost', // domain Web A
-                true,
-                true,
-                false,
-                'Strict'
-            )
-        );
-        // Cookie::queue('role', $data['role'], 60 * 24 * 7);
+
+        // SIMPAN SEMUA DATA KE DALAM SESSION
+        session([
+            'auth_token' => $data['token'],
+            'role'       => $data['role'],
+            'name'       => $data['name'],
+            'id_user'    => $data['id_user'],
+            'email'      => $data['email'],
+            'id_address'=>$data['id_address'],
+        ]);
+
+        // atau session()->put('key', 'value'); (sama saja)
+        // session()->put('auth_token', $data['token']);
+
         return response()->json($response->json(), $response->status());
     }
 }

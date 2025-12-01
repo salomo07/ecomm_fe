@@ -416,6 +416,7 @@
             getProduct(result.data.data) 
         }).catch(err => {
             console.error("API ERROR:", err);
+            alert("Gagal memuat data \n"+JSON.stringify(err))
         });
         isLoadingProduct = false;
     </script>

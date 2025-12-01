@@ -77,7 +77,7 @@
 
                             <hr>
 
-                            <a href="/checkout" id="btnCheckout"
+                            <a id="btnCheckout"
                                 class="btn w-100 py-2 mt-2"
                                 disabled style="background-color:#81c408">
                                 Checkout
@@ -232,7 +232,7 @@
             tbody.innerHTML = "<tr><td></td><td></td><td></td><td></td><td></td></tr>";
 
             cart.forEach((product, pIndex) => {
-
+                console.log(product)
                 // Row header Product Name
                 let productRow = document.createElement("tr");
                 productRow.classList.add("product-header-row");
@@ -255,6 +255,7 @@
 
                         <!-- Checkbox pilih -->
                         <td class="py-3 text-center">
+                            <input type="hidden" value="${attr.itemId}">
                             <input type="checkbox" class="form-check-input attr-check"
                                 data-product="${pIndex}" data-attr="${aIndex}"
                                 ${attr.checked ? "checked" : ""}>
@@ -372,11 +373,10 @@
         renderCartTable();
         updateSummaryCard();
         var getCart=()=>{
-            console.log("getCart")
             if(localStorage.getItem("cart")==null){
-                apiFetch("{{env('API_BASE_URL')}}carts/{{request()->cookie('id_user')}}","{}","GET").then(result => {
+                apiFetch("{{ env('API_BASE_URL') }}carts/{{ session('id_user') }}","{}","GET").then(result => {
                     console.log(result)
-                    localStorage.setItem("cart", JSON.stringify(convertCart(result.data, "{{request()->cookie('email')}}")));
+                    localStorage.setItem("cart", JSON.stringify(convertCart(result.data, "{{session('email')}}")));
                     renderCartTable()
                 }).catch(err => {
                     console.error("API ERROR:", err);
@@ -410,6 +410,80 @@
 
             return result;
         }
+
+        
+        document.getElementById("btnCheckout").addEventListener("click", function () {
+            var data = getCheckedItems()
+            if(data==null){
+                alert("Silahkan pilih item terlebih dahulu")
+                return
+            }
+            sendOrderToBE(data)
+        });
+
+        function sendOrderToBE(dataCart) {
+            window.location.href = "/checkout";
+            // apiFetch("{{env('API_BASE_URL')}}order",JSON.stringify(dataCart),"POST").then(result => {
+            //     console.log(result)
+            //     if(result.success){
+            //         //window.location.href = "/checkout/"+result.id;
+            //     }
+            // }).catch(err => {
+            //     console.error("API ERROR:", err);
+            // });
+        }
+
+        function getCheckedItems() {
+            let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+            // Jika cart kosong, kembalikan null
+            if (!Array.isArray(cart) || cart.length === 0) {
+                return null;
+            }
+
+            let newCart = {
+                iduser: Number("{{ session('id_user') }}"),
+                email: "{{ session('email') }}",
+                products: [],
+                final_amount : Number(document.getElementById("totalPrice").innerHTML.replace("Rp. ", "").replace(/\./g, "")),
+                id_address:"{{ session('id_address') }}"
+            };
+
+            cart.forEach(prod => {
+                // Siapkan struktur produk
+                let productBlock = {
+                    idproduct: prod.idproduct,
+                    productname: prod.productname,
+                    productStoreName: prod.productStoreName,
+                    attributes: []
+                };
+
+                prod.attributes.forEach(attr => {
+                    // Hanya ambil attribute yg dicentang & qty valid
+                    if (attr.checked && attr.qty > 0) {
+                        productBlock.attributes.push({
+                            itemId: Number(attr.itemId),
+                            itemName: attr.itemName,
+                            qty: Number(attr.qty)
+                        });
+                    }
+                });
+
+                // Jika minimal 1 attribute checked → masukkan ke products
+                if (productBlock.attributes.length > 0) {
+                    newCart.products.push(productBlock);
+                }
+            });
+
+            // Jika tidak ada produk terpilih → return null
+            if (newCart.products.length === 0) {
+                return null;
+            }
+
+            return newCart;
+        }
+
+
     </script>
 
 

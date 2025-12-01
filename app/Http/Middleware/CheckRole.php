@@ -11,7 +11,7 @@ class CheckRole
     public function handle(Request $request, Closure $next, $requiredRole)
     {
         // Ambil role dari cookies
-        $role = $request->cookie('role');
+        $role = session('role');
         $allowedRoles = explode(',', $requiredRole);
 
         if (!in_array($role, $allowedRoles)) {

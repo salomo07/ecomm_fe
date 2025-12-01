@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OrderController;
 
 Route::get('/', function () {
     return view('landing');
@@ -22,3 +24,6 @@ Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::get('/products', [ProductController::class, 'index'])->name('products')->middleware('role:3');
 Route::get('/store', [ProductController::class, 'store'])->name('store');
 Route::get('/unauthorized', [AuthController::class, 'unauthorized'])->name('unauthorized');
+Route::get('/checkout', [OrderController::class, 'index'])->name('checkout');
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+Route::get('/profile/address', [ProfileController::class, 'address'])->name('profile.address');

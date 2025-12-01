@@ -6,7 +6,7 @@
                 <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">Email@Example.com</a></small>
             </div>
             <div class="top-link pe-2">
-                <a href="{{request()->cookie('name')?'/profile':'/login'}}" class="text-white"><small class="text-white mx-2">Hi, {{request()->cookie('name')??'Guest'}}</small></a>
+                <a href="{{ session('name') ? '/profile' : '/login' }}" class="text-white"><small class="text-white mx-2">Hi, {{session('name')??'Guest'}}</small></a>
             </div>
         </div>
     </div>
@@ -21,7 +21,7 @@
                     <a href="/" class="nav-item nav-link {{ Route::currentRouteName() == 'home' ? 'active' : '' }}">Home</a>
                     <a href="/shop" class="nav-item nav-link {{ Route::currentRouteName() == 'shop' ? 'active' : '' }}"> Shop
                     </a>
-                    @if (request()->cookie('role') == 3)
+                    @if (session('role') == 3)
                         <a href="/products" class="nav-item nav-link {{ Route::currentRouteName() == 'products' ? 'active' : '' }}">My Products</a>
                     @endif
                 </div>
@@ -31,18 +31,17 @@
                         <i class="fa fa-shopping-bag fa-2x"></i>
                         <span id="totalCart" class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                     </a>
-                    @if (!request()->cookie('name'))
+                    @if (!session('name'))
                     <a href="/login" class="my-auto">
                         <i class="fas fa-user fa-2x"></i>
                     </a>
                     @endif
-                    @if (request()->cookie('name'))
+                    @if (session('name'))
                     <a href="#" class="my-auto" data-bs-toggle="dropdown">
                         <i class="fas fa-user fa-2x"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                         <li><a class="dropdown-item" href="/profile">My Profile</a></li>
-                        <li><a class="dropdown-item" href="/store">My Store</a></li>
                         <li><a class="dropdown-item" href="/orders">My Orders</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="/logout" id="btnLogout">Logout</a></li>

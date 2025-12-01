@@ -95,7 +95,9 @@
                             <div class="col-lg-6">
                                 <h4 class="fw-bold mb-3" id="productName">Brocoli</h4>
                                 <p class="mb-3" id="productCat">Category: Vegetables</p>
-                                <p class="mb-3">Basic price : <h5 class="fw-bold mb-3" id="productPrice">3,35 $</h5></p>
+                                <p class="mb-3">Basic price : <b id="productPrice">3,35 $</b></p>
+                                <p class="mb-3">SKU : <b id="productSKU">3,35 $</b></p>
+                                <p class="mb-3">Seller : <b id="productStore">3,35 $</b></p>
                             </div>
                             <div class="col-lg-12">
                                 <nav>
@@ -266,11 +268,13 @@
         import { apiFetch } from '/js/fetch.js';
         var product;
         var getProductDetail = (product) => {
-            console.log(product)
             document.getElementById("productName").innerText = product.name;
-            document.getElementById("productCat").innerText = product.category.name;
+            document.getElementById("productCat").innerText = "Category : "+product.category.name;
             document.getElementById("productPrice").innerText = "Rp."+product.basic_price;
             document.getElementById("productDesc").innerText = product.description;
+            document.getElementById("productSKU").innerText = product.sku;
+            document.getElementById("productStore").innerText = product.store.name;
+            productStore
             getIsiTable(product, product.attributes);
             loadCarouselImages(product.attributes)
         };
@@ -295,6 +299,8 @@
                         <input type="hidden" class="productId" value="${prod.id ?? '-'}">
                         <input type="hidden" class="productName" value="${prod.name ?? '-'}">
                         <input type="hidden" class="itemAdjustPrice" value="${attr.price_adjustment ?? '-'}">
+                        <input type="hidden" class="itemImage" value="${attr.image ?? '-'}">
+                        <input type="hidden" class="productStoreName" value="${prod.store.name ?? '-'}">
                         <div class="col-2">${attr.type ?? '-'}</div>
                         <div class="col-2">${attr.name ?? '-'}</div>
                         <div class="col-2">Rp ${Number(attr.price_adjustment || 0).toLocaleString()}</div>
@@ -331,13 +337,15 @@
         document.getElementById("btnKeranjang").addEventListener("click", function () {
             let rows = document.querySelectorAll("#variantContainer .row");
             let items = [];
-
+            let productStoreName = '';
             // KUMPULKAN ATTRIBUTE YANG QTY > 0
             rows.forEach(row => {
                 let itemId = row.querySelector(".itemId")?.value;
                 let itemName = row.querySelector(".itemName")?.value;
+                let itemImage = row.querySelector(".itemImage")?.value;
                 let itemAdjustPrice = row.querySelector(".itemAdjustPrice")?.value;
-
+                productStoreName= row.querySelector(".productStoreName")?.value;
+                
                 let qtyInput = row.querySelector("input[type='number']");
                 let qty = parseInt(qtyInput.value || 0);
 
@@ -345,6 +353,7 @@
                     items.push({
                         itemId: Number(itemId),
                         itemName: itemName,
+                        itemImage: itemImage,
                         itemAdjustPrice:Number(itemAdjustPrice),
                         qty: Number(qty)
                     });
@@ -360,10 +369,11 @@
 
             // DATA PRODUCT BARU
             let productCart = {
-                iduser: "{{request()->cookie('id_user')}}",
-                email: "{{request()->cookie('email')}}",
+                iduser: "{{session('id_user') }}",
+                email: "{{session('email') }}",
                 idproduct: product.id,
                 productname: product.name,
+                productStoreName:productStoreName,
                 productBasicePrice: product.basic_price,
                 attributes: items
             };

@@ -57,7 +57,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <h4 class="fw-bold mb-3" id="productName">Brocoli</h4>
+                                <h4 class="fw-bold mb-3" id="productName">Brocoli</h4><h5 class="fw-bold mb-3" id="productSKU">---</h5>
                                 <p class="mb-3" id="productCat">Category: Vegetables</p>
                                 <h5 class="fw-bold mb-3" id="productPrice">3,35 $</h5>
                                 <p class="mb-4" id="productDesc">The generated Lorem Ipsum is therefore always free from repetition injected humour, or non-characteristic words etc.</p>
@@ -547,7 +547,6 @@
             document.getElementById("productCat").innerText = product.category.name;
             document.getElementById("productPrice").innerText = "Rp."+product.basic_price;
             document.getElementById("productDesc").innerText = product.description;
-            document.getElementById("productQty").innerText = product.description;
         };
         await apiFetch("{{$productDetailURL}}","{}","GET",@json($token)).then(result => {
             getProductDetail(result.data) 

@@ -11,15 +11,15 @@ class ProductController extends Controller
         if (request()->has('id')) {
             $productId = request()->get('id');
             return view('product-detail', [
-                'productDetailURL' => env('API_BASE_URL') . 'products/' . $productId,'token'=>$request->cookie('auth_token')
+                'productDetailURL' => env('API_BASE_URL') . 'products/' . $productId,'token'=>session('auth_token')
             ]);
         }
 
-        return view('product',['productURL'=>env('API_BASE_URL').'products','token'=>$request->cookie('auth_token')]);
+        return view('product',['productURL'=>env('API_BASE_URL').'products','token'=>session('auth_token')]);
     }
 
     public function store(Request $request)
     {
-        return view('store',['productURL'=>env('API_BASE_URL').'products','token'=>$request->cookie('auth_token')]);
+        return view('store',['productURL'=>env('API_BASE_URL').'products','token'=>session('auth_token')]);
     }
 }
