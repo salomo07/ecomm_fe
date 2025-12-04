@@ -134,14 +134,18 @@ document.getElementById("editAddressForm").addEventListener("submit", async func
     // Kirim ke API (contoh)
     if(isEdit){
         await apiFetch("{{env('API_BASE_URL')}}shipping-address/"+document.getElementById("edit_id").value,JSON.stringify(payload),"PUT",@json($token)).then(result => {
-
+            if(result.success){
+                location.reload()
+            }
         }).catch(err => {
             alert('Gagal menyimpan alamat'+JSON.stringify(err));
         })
         isEdit=false;
     }else{
         await apiFetch("{{env('API_BASE_URL')}}shipping-address/",JSON.stringify(payload),"POST",@json($token)).then(result => {
-
+            if(result.success){
+                location.reload()
+            }
         }).catch(err => {
             alert('Gagal menyimpan alamat'+JSON.stringify(err));
         })
@@ -152,7 +156,7 @@ document.getElementById("editAddressForm").addEventListener("submit", async func
     // }).catch(err => {
     //     alert('Gagal menyimpan alamat'+JSON.stringify(err));
     // })
-    location.reload()
+    // location.reload()
     
 });
 

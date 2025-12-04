@@ -60,10 +60,10 @@
                             <div class="card-body">
                                 <h5 class="fw-bold mb-3">📍 Data Pembeli</h5>
 
-                                <p class="mb-1 fw-bold" id="userName">Nama Pembeli</p>
-                                <p class="mb-1" id="userAddress">Alamat Pembeli ...</p>
+                                <p class="mb-1 fw-bold" id="userName">{{session('address_name')}}</p>
+                                <p class="mb-1" id="userAddress">{{session('address_detail')}}</p>
 
-                                <a class="btn btn-outline-primary btn-sm mt-2">Ganti</a>
+                                <a class="btn btn-outline-primary btn-sm mt-2" href="/profile/address">Ganti</a>
                             </div>
                         </div>
 
@@ -96,8 +96,6 @@
                                     <label class="form-label fw-bold">Metode Pembayaran</label>
                                     <select id="paymentMethod" class="form-select">
                                         <option value="" selected disabled>Pilih metode pembayaran</option>
-                                        <option value="QRIS">QRIS</option>
-                                        <option value="VA">Virtual Account</option>
                                     </select>
                                 </div>
 
@@ -139,13 +137,16 @@
                             <input type="email" id="emailInput" class="form-control" placeholder="user@example.com">
                             <small id="emailError" class="text-danger d-none">Email tidak valid</small>
                         </div>
+                        <div class="mb-3">
+                            <label for="nameInput" class="form-label">Nama : </label>
+                            <input id="nameInput" class="form-control" placeholder="Wijaya Kusuma">
+                        </div>
 
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                         <button type="button" class="btn btn-primary" id="btnSendEmail">Simpan</button>
-
                     </div>
 
                 </div>
@@ -162,11 +163,12 @@
                     </div>
 
                     <div class="modal-body text-center">
-                        {!! QrCode::size(220)->generate("Inicontoh ya") !!}
-                        
+
+                        <div id="qrCodeContainer"></div>
                         <p class="mt-3">
-                            <b>{{ "Inicontoh ya" }}</b>
+                            <b id="invoiceText"></b>
                         </p>
+
                     </div>
 
                     <div class="modal-footer">
@@ -210,35 +212,57 @@
     </script>
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-    <script>
-        // Ambil email dari session
-        var email = "{{ session('email') }}";
+    <script type="module">
+        import { apiFetch } from '/js/fetch.js';
 
+        // Ambil session
+        var email = "{{ session('email') }}";
+        var name = "{{ session('name') }}";
+        var directorder = new URLSearchParams(window.location.search).get('dir');
+
+        // Modal bootstrap
         let emailModal = new bootstrap.Modal(document.getElementById('emailDialog'));
         let qrModal = new bootstrap.Modal(document.getElementById('qrModal'));
 
-        // Render semua item dari localStorage
+        // Jika belum punya email → buka dialog
+        if (!email || email.trim() === "") {
+            emailModal.show();
+        }
+
+        /* ============================================================
+        GET CART (directorder / cart normal)
+        ============================================================ */
+        function getCart() {
+            if (directorder == "true") {
+                return JSON.parse(localStorage.getItem("directorder") || "[]");
+            }
+            return JSON.parse(localStorage.getItem("cart") || "[]");
+        }
+
+        /* ============================================================
+        RENDER CART LIST
+        ============================================================ */
         function renderCartList() {
-            let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+            let cart = getCart();
             let container = document.getElementById("cartList");
             let template = document.getElementById("itemTemplate").innerHTML;
+
             let html = "";
             let total = 0;
 
             cart.forEach(product => {
-                console.log(product)
                 product.attributes.forEach(attr => {
-                    
+
                     if (!attr.checked) return;
 
-                    let price = product.productBasicePrice + attr.itemAdjustPrice;
-                    let subtotal = price * attr.qty;
+                    let price = Number(product.productBasicePrice) + Number(attr.itemAdjustPrice);
+                    let subtotal = price * Number(attr.qty);
 
                     total += subtotal;
 
                     html += template
-                        .replace(/__STORE__/g, product.productStoreName)      // atau product.storeName kalau ada
-                        .replace(/__IMAGE__/g, "{{env('API_IMAGE_URL')}}"+attr.itemImage)
+                        .replace(/__STORE__/g, product.productStoreName)
+                        .replace(/__IMAGE__/g, "{{env('API_IMAGE_URL')}}" + attr.itemImage)
                         .replace(/__PRODUCT__/g, product.productname)
                         .replace(/__VARIANT__/g, attr.itemName)
                         .replace(/__QTY__/g, attr.qty)
@@ -251,37 +275,45 @@
             document.getElementById("totalPrice").innerHTML = "Rp " + total.toLocaleString("id-ID");
         }
 
-        // Hitung total
+        /* ============================================================
+        UPDATE SUMMARY (TOTAL HARGA)
+        ============================================================ */
         function updateSummary() {
-            let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+            let cart = getCart();
             let total = 0;
 
-            cart.forEach(p => {
-                p.attributes.forEach(attr => {
+            cart.forEach(product => {
+                product.attributes.forEach(attr => {
                     if (attr.checked) {
-                        total += (p.productBasicePrice + attr.itemAdjustPrice) * attr.qty;
+                        total += (Number(product.productBasicePrice) + Number(attr.itemAdjustPrice)) * Number(attr.qty);
                     }
                 });
             });
 
-            document.getElementById("totalPrice").innerText =
-                "Rp" + Number(total).toLocaleString('id-ID');
+            document.getElementById("totalPrice").innerText = "Rp " + total.toLocaleString("id-ID");
         }
 
-        // Ketika klik tombol Bayar
+        /* ============================================================
+        KLIK BUTTON BAYAR
+        ============================================================ */
         document.getElementById("btnPayment").addEventListener("click", function () {
             let pm = document.getElementById("paymentMethod").value;
 
             if (pm === "") {
                 alert("Silakan pilih metode pembayaran.");
                 return;
-            }else if (!email || email.trim() === "") {
+            }
+            if (!email || email.trim() === "") {
                 emailModal.show();
                 return;
             }
+
+            sendOrderToBE(getCheckedItems());
         });
 
-        // Tombol submit email
+        /* ============================================================
+        SIMPAN EMAIL DARI MODAL
+        ============================================================ */
         document.getElementById("btnSendEmail").addEventListener("click", function () {
             let input = document.getElementById("emailInput").value;
             let err = document.getElementById("emailError");
@@ -291,41 +323,126 @@
                 return;
             }
 
+            email = input;
             err.classList.add("d-none");
-
-            email = input; // simpan ke variabel
-
             emailModal.hide();
-
-            qrModal.show(); // lanjut ke QR
         });
 
-
-        // Load pertama kali
-        renderCartList();
-        updateSummary();
-    </script>
-
-
-
-    <script type="module">
-        // Render Tabel Cart
-        import { apiFetch } from '/js/fetch.js';
-        var email = "{{session('email')}}";
-        let emailModal = new bootstrap.Modal(document.getElementById('emailDialog'));
-        document.getElementById("btnPayment").addEventListener("click", function () {
-            if(email=='')
-            {
-                emailModal.show();
-                return
-            }
-        })
-
-        if(email=='')
-        {
-            emailModal.show();
+        /* ============================================================
+        KIRIM ORDER KE BACKEND
+        ============================================================ */
+        function sendOrderToBE(dataCart) {
+            console.log("sendOrderToBE")
+            apiFetch("{{env('API_BASE_URL')}}order", JSON.stringify(dataCart), "POST")
+                .then(result => {
+                    console.log(result);
+                    if (result.success && Number(document.getElementById("paymentMethod").value)==1) {
+                        showQR(result.data.invoice_number);
+                    }
+                })
+                .catch(err => {
+                    alert('Gagal membuat Order...');
+                });
         }
+        function showQR(code){
+            const invoice = code;
+
+            // set teks invoice
+            document.getElementById('invoiceText').innerText = invoice;
+
+            // set QR code (pakai API laravel QR dari route)
+            document.getElementById('qrCodeContainer').innerHTML =
+                `{!! QrCode::size(220)->generate('__INVOICE__') !!}`.replace('__INVOICE__', invoice);
+
+            // munculkan modal
+            const modal = new bootstrap.Modal(document.getElementById('qrModal'));
+            modal.show();
+            //window.location.href = "/checkout/" + result.id;
+        }
+        /* ============================================================
+        GENERATE DATA CART UNTUK BACKEND
+        ============================================================ */
+        function getCheckedItems() {
+            let cart = getCart();
+
+            if (!Array.isArray(cart) || cart.length === 0) return null;
+
+            // Ambil total harga REAL
+            let finalAmount = Number(
+                document.getElementById("totalPrice").innerHTML
+                    .replace("Rp", "")
+                    .replace(/\s/g, "")
+                    .replace(/\./g, "")
+            );
+
+            let newCart = {
+                id_user: Number("{{ session('id_user') }}"),
+                email: email,
+                customer_name: document.getElementById("nameInput").value,
+                products: [],
+                final_amount: finalAmount,
+                id_payment_method: document.getElementById("paymentMethod").value,
+                id_address: "{{ session('address_id') }}"
+            };
+
+            cart.forEach(prod => {
+                let productBlock = {
+                    id_product: prod.idproduct,
+                    product_name: prod.productname,
+                    productStoreName: prod.productStoreName,
+                    attributes: []
+                };
+
+                prod.attributes.forEach(attr => {
+                    if (attr.checked && attr.qty > 0) {
+                        productBlock.attributes.push({
+                            itemId: Number(attr.itemId),
+                            itemName: attr.itemName,
+                            qty: Number(attr.qty)
+                        });
+                    }
+                });
+
+                if (productBlock.attributes.length > 0) {
+                    newCart.products.push(productBlock);
+                }
+            });
+
+            return newCart.products.length > 0 ? newCart : null;
+        }
+
+        /* ============================================================
+        LOAD PAYMENT METHOD FROM API
+        ============================================================ */
+        function getPaymentMethod() {
+            apiFetch("{{env('API_BASE_URL')}}payment_method", "{}", "GET")
+                .then(result => {
+                    if (result.success) {
+                        const select = document.getElementById('paymentMethod');
+                        result.data.forEach(item => {
+                            const option = document.createElement('option');
+                            option.value = item.id;
+                            option.textContent = item.name;
+                            option.setAttribute('data-description', item.description || "");
+                            select.appendChild(option);
+                        });
+                    }
+                })
+                .catch(err => console.error("API ERROR:", err));
+        }
+
+        getPaymentMethod();
+
+        /* ============================================================
+        FIRST LOAD
+        ============================================================ */
+        renderCartList();
+
+        // Delay agar render selesai → total benar
+        setTimeout(updateSummary, 50);
+
     </script>
+
 
     </body>
 </html>

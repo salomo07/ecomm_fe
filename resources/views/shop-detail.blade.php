@@ -182,6 +182,7 @@
                                                     </a>
 
                                                     <a href="#"
+                                                    id="btnOrder"
                                                     class="btn rounded-pill px-4 py-2 mb-3 text-white"
                                                     style="background-color: #28a745;">
                                                         <i class="fa fa-bolt me-2 text-white"></i>
@@ -335,6 +336,19 @@
         }
 
         document.getElementById("btnKeranjang").addEventListener("click", function () {
+            var cart =saveToLocalStorage()
+            console.log("UPDATED CART:", cart, JSON.stringify(cart));
+
+            console.log("FINAL FORMAT:", convertCartFormat(cart));
+            alert("Product ditambahkan ke keranjang")
+            getTotalQty()
+            sendCartToBE(convertCartFormat(cart))
+        });
+        document.getElementById("btnOrder").addEventListener("click", function () {
+            saveDirectOrder();
+            window.location.href = "/checkout?dir=true";
+        })
+        function saveToLocalStorage(){
             let rows = document.querySelectorAll("#variantContainer .row");
             let items = [];
             let productStoreName = '';
@@ -412,16 +426,62 @@
 
             // SIMPAN KEMBALI KE LOCAL STORAGE
             localStorage.setItem("cart", JSON.stringify(cart));
-            var cartToBE = {
+            return cart
+        }
+        function saveDirectOrder() {
+            let rows = document.querySelectorAll("#variantContainer .row");
+            let items = [];
+            let productStoreName = '';
 
+            rows.forEach(row => {
+                let itemId = row.querySelector(".itemId")?.value;
+                let itemName = row.querySelector(".itemName")?.value;
+                let itemImage = row.querySelector(".itemImage")?.value;
+                let itemAdjustPrice = row.querySelector(".itemAdjustPrice")?.value;
+                productStoreName = row.querySelector(".productStoreName")?.value;
+
+                let qtyInput = row.querySelector("input[type='number']");
+                let qty = parseInt(qtyInput.value || 0);
+
+                if (qty > 0) {
+                    items.push({
+                        itemId: Number(itemId),
+                        itemName: itemName,
+                        itemImage: itemImage,
+                        itemAdjustPrice: Number(itemAdjustPrice),
+                        qty: Number(qty),
+                        checked:true
+                    });
+                }
+            });
+
+            // ⛔ Jika tidak ada qty > 0
+            if (items.length === 0) {
+                alert("Silahkan masukkan qty dahulu sebelum direct order");
+                return;
             }
-            console.log("UPDATED CART:", cart, JSON.stringify(cart));
 
-            console.log("FINAL FORMAT:", convertCartFormat(cart));
-            alert("Product ditambahkan ke keranjang")
-            getTotalQty()
-            sendCartToBE(convertCartFormat(cart))
-        });
+            // DATA DIRECT ORDER
+            let directOrder = [{
+                iduser: "{{session('id_user')}}",
+                email: "{{session('email')}}",
+                idproduct: product.id,
+                productname: product.name,
+                productStoreName: productStoreName,
+                productBasicePrice: product.basic_price,
+                attributes: items
+            }];
+
+            // ===========================
+            // SIMPAN KE LOCAL STORAGE
+            // ===========================
+
+            // Overwrite langsung tanpa merge
+            localStorage.setItem("directorder", JSON.stringify(directOrder));
+
+            console.log("Direct Order tersimpan:", directOrder);
+        }
+
         function sendCartToBE(dataCart) {
             apiFetch("{{$sendCartURL}}",JSON.stringify(dataCart),"POST").then(result => {
                 console.log(result)

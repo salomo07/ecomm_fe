@@ -109,15 +109,14 @@ document.querySelector("form").addEventListener("submit", async function (e) {
 
    await apiFetch("login", raw, "POST").then(result => {
       if (result.success) {
-         
-
          if (result.data.role == 1) {
                alert("Silahkan login melalui dashboard admin");
          } else {
+            // localStorage.clear();
             console.log(result)
                setTimeout(() => {
                   window.location.href = "/";
-                  localStorage.clear();
+                  
                   localStorage.setItem("loginData", JSON.stringify(result.data));
                }, 500);
          }

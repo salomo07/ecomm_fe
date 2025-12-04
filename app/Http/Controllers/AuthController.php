@@ -7,42 +7,6 @@ use Illuminate\Support\Facades\Http;
 
 class AuthController extends Controller
 {
-    public function index()
-    {
-        $cartData = [
-            "productcategory" => [
-                [
-                    "id"   => "cat-001",
-                    "name" => "Buah Segar",
-                    "desc" => "Kategori untuk buah segar dan natural",
-                ],
-                [
-                    "id"   => "cat-002",
-                    "name" => "Sayuran",
-                    "desc" => "Sayuran organik dan hidroponik",
-                ],
-                [
-                    "id"   => "cat-003",
-                    "name" => "Online",
-                    "desc" => "Sayuran organik dan hidroponik",
-                ],
-            ],
-            "product" => [
-                [
-                    "id"         => "prod-001",
-                    "idseller"   => "seller-001",
-                    "idcategory" => "cat-001",
-                    "categoryname" => "Buah Segar",
-                    "name"       => "Apel Fuji Premium",
-                    "desc"       => "Apel Fuji manis impor kualitas premium",
-                    "sku"        => "FUJI-APL-001",
-                ],
-            ]
-        ];
-
-        // Kirim ke view "shop" (resources/views/shop.blade.php)
-        return view('cart', compact('cartData'));
-    }
     public function loginView()
     {
         return view('login', []);
@@ -70,7 +34,7 @@ class AuthController extends Controller
         }
 
         $data = $response->json()['data'];
-
+        // echo json_encode($data);
         // SIMPAN SEMUA DATA KE DALAM SESSION
         session([
             'auth_token' => $data['token'],
@@ -78,7 +42,9 @@ class AuthController extends Controller
             'name'       => $data['name'],
             'id_user'    => $data['id_user'],
             'email'      => $data['email'],
-            'id_address'=>$data['id_address'],
+            'address_name'=>$data['address_name'],
+            'address_detail'=>$data['address_detail'],
+            'address_id'=>$data['address_id'],
         ]);
 
         // atau session()->put('key', 'value'); (sama saja)

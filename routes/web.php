@@ -8,6 +8,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 
+use App\Mail\InvoiceEmail;
+use Illuminate\Support\Facades\Mail;
 Route::get('/', function () {
     return view('landing');
 })->name('home');
@@ -27,3 +29,14 @@ Route::get('/unauthorized', [AuthController::class, 'unauthorized'])->name('unau
 Route::get('/checkout', [OrderController::class, 'index'])->name('checkout');
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::get('/profile/address', [ProfileController::class, 'address'])->name('profile.address');
+Route::get('/orders', [OrderController::class, 'orders'])->name('orders');
+
+Route::get('/send', function () {
+    $to = request()->get('to');
+    $data = ['name' => 'User Laravel'];
+
+    Mail::to($to)->send(new InvoiceEmail($data));
+
+    return "Email berhasil dikirim via ke : ".$to;
+});
+

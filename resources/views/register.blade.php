@@ -140,6 +140,7 @@ document.getElementById("registerForm").addEventListener("submit", async functio
    .catch(err => {
       console.error("API ERROR:", err);
    });
+})
    // await fetch("{{ $registerURL }}", {
    //       method: "POST",
    //       headers: {
