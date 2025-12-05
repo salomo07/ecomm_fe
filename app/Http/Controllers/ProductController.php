@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class ProductController extends Controller
 {
@@ -20,6 +21,12 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        return view('store',['productURL'=>env('API_BASE_URL').'products','token'=>session('auth_token')]);
+        $storeId = request()->get('id');
+        $response = Http::get(env('API_BASE_URL') . 'store/'.$storeId);
+        if (!$response->successful()) {
+            return response()->json($response->json(), $response->status());
+        }
+        $data = $response->json()['data'];
+        return view('store',['token'=>session('auth_token'),'dataStore'=>$data]);
     }
 }

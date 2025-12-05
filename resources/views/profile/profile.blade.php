@@ -67,6 +67,7 @@
 
     @include('includes.footer')
 
+
 <style>
     .profile-tabs {
         border-bottom: 2px solid #e5e5e5;
@@ -110,6 +111,7 @@
     document.getElementById("imagePicker").addEventListener("click", () => {
         document.getElementById("logo").click();
     });
+    
 </script>
 </body>
 </html>

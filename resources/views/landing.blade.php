@@ -46,24 +46,16 @@
             <div class="container py-5">
                 <div class="row g-5 align-items-center">
                     <div class="col-md-12 col-lg-7">
-                        <h4 class="mb-3 text-secondary">100% Organic Foods</h4>
-                        <h1 class="mb-5 display-3 text-primary">Organic Veggies & Fruits Foods</h1>
+                        <h4 class="mb-3 text-secondary">100% New brands</h4>
+                        <h1 class="mb-5 display-3 text-primary">Find all what you need here</h1>
                         <div class="position-relative mx-auto">
-                            <input class="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill" type="number" placeholder="Search">
-                            <button type="submit" class="btn btn-primary border-2 border-secondary py-3 px-4 position-absolute rounded-pill text-white h-100" style="top: 0; right: 25%;">Submit Now</button>
+                            <input id="keywordlanding" class="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill" placeholder="Search">
+                            <a id="btnSearch" type="submit" class="btn btn-primary border-2 border-secondary py-3 px-4 position-absolute rounded-pill text-white h-100" style="top: 0; right: 25%;">Seach</a>
                         </div>
                     </div>
                     <div class="col-md-12 col-lg-5">
                         <div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">
-                            <div class="carousel-inner" role="listbox">
-                                <div class="carousel-item active rounded">
-                                    <img src="img/hero-img-1.png" class="img-fluid w-100 h-100 bg-secondary rounded" alt="First slide">
-                                    <a href="#" class="btn px-4 py-2 text-white rounded">Fruites</a>
-                                </div>
-                                <div class="carousel-item rounded">
-                                    <img src="img/hero-img-2.jpg" class="img-fluid w-100 h-100 rounded" alt="Second slide">
-                                    <a href="#" class="btn px-4 py-2 text-white rounded">Vesitables</a>
-                                </div>
+                            <div id="carouselImages" class="carousel-inner" role="listbox">
                             </div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -728,6 +720,45 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script type="module">
+        import { apiFetch } from '/js/fetch.js';
+        function loadCarouselImages(data) {
+            const container = document.getElementById("carouselImages");
+            let html = "";
+            console.log(data)
+            data.forEach((item, index) => {
+                html += `
+                    <div class="carousel-item ${index === 0 ? "active" : ""} rounded">
+                        <img src="{{env('API_IMAGE_URL')}}${item.image}" style="max-height:300px" class="img-fluid w-100 h-100 rounded" alt="slide-${index}">
+                        <a href="/shop?cat=${item.id}" class="btn px-4 py-2 text-white rounded">${item.name}</a>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+        function getCategories() {
+            apiFetch("{{env('API_BASE_URL')}}list-category", "{}", "GET").then(result => {
+                console.log(result)
+                loadCarouselImages(result.data)
+            })
+            .catch(err => {
+                alert("Gagal memuat data \n" + JSON.stringify(err));
+            });
+        }
+        getCategories()
+            document.getElementById('btnSearch').addEventListener('click', function() {
+            // Ambil value dari input
+            const keyword = document.getElementById('keywordlanding').value;
+            
+            if(keyword.trim() !== '') {
+                window.location.href = `/shop?keyword=${encodeURIComponent(keyword)}`;
+            } else {
+                alert('Silakan masukkan keyword terlebih dahulu!');
+            }
+        });
+    </script>
+    
     </body>
 
 </html>

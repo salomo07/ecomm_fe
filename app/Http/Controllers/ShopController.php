@@ -9,44 +9,12 @@ class ShopController extends Controller
 {
     public function index(Request $request)
     {
-        $token = Cookie::get('role');
-        $shopData = [
-            "productcategory" => [
-                [
-                    "id"   => "cat-001",
-                    "name" => "Buah Segar",
-                    "desc" => "Kategori untuk buah segar dan natural",
-                ],
-                [
-                    "id"   => "cat-002",
-                    "name" => "Sayuran",
-                    "desc" => "Sayuran organik dan hidroponik",
-                ],
-                [
-                    "id"   => "cat-003",
-                    "name" => "Online",
-                    "desc" => "Sayuran organik dan hidroponik",
-                ],
-            ],
-            "product" => [
-                [
-                    "id"         => "prod-001",
-                    "idseller"   => "seller-001",
-                    "idcategory" => "cat-001",
-                    "categoryname" => "Buah Segar",
-                    "name"       => "Apel Fuji Premium",
-                    "desc"       => "Apel Fuji manis impor kualitas premium",
-                    "sku"        => "FUJI-APL-001",
-                ],
-            ]
-        ];
-
         if (request()->has('id')) {
             $productId = request()->get('id');
             return view('shop-detail', [
                 'productDetailURL' => env('API_BASE_URL') . 'general-product-detail/' . $productId,"sendCartURL"=>env('API_BASE_URL').'cart',
             ]);
         }
-        return view('shop', ['productURL'=>env('API_BASE_URL').'general-products','shopData'=>$shopData]);
+        return view('shop', ['productURL'=>env('API_BASE_URL').'general-products','cat'=>request()->get('cat'),'keyword'=>urldecode(request()->get('keyword'))]);
     }
 }

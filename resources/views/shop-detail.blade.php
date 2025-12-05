@@ -56,6 +56,13 @@
             .carousel-control-next {
                 width: 5%;
             }
+            #sellerLink:hover b {
+                text-decoration: underline;
+            }
+
+            #sellerLogo {
+                border: 1px solid #ddd;
+            }
         </style>
     </head>
 
@@ -97,7 +104,19 @@
                                 <p class="mb-3" id="productCat">Category: Vegetables</p>
                                 <p class="mb-3">Basic price : <b id="productPrice">3,35 $</b></p>
                                 <p class="mb-3">SKU : <b id="productSKU">3,35 $</b></p>
-                                <p class="mb-3">Seller : <b id="productStore">3,35 $</b></p>
+                                <div class="mb-3 d-flex align-items-center">
+                                    <span class="me-2">Seller :</span>
+
+                                    <a id="sellerLink" href="#" class="d-flex align-items-center text-decoration-none">
+                                        <img id="sellerLogo" 
+                                            src="/img/default-store.png" 
+                                            alt="Seller Logo" 
+                                            class="rounded-circle me-2"
+                                            style="width: 32px; height: 32px; object-fit: cover;">
+
+                                        <b id="productStore" class="text-primary"></b>
+                                    </a>
+                                </div>
                             </div>
                             <div class="col-lg-12">
                                 <nav>
@@ -252,6 +271,11 @@
         
 
         <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
+        <x-modal id="editUserModal" title="Edit User" size="lg">
+
+            <div id="lottieContainer" style="width:300px; height:300px;"></div>
+
+        </x-modal>
 
         
     <!-- JavaScript Libraries -->
@@ -261,7 +285,7 @@
     <script src="lib/waypoints/waypoints.min.js"></script>
     <script src="lib/lightbox/js/lightbox.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.6/lottie.min.js"></script>
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script type="module">
@@ -275,7 +299,11 @@
             document.getElementById("productDesc").innerText = product.description;
             document.getElementById("productSKU").innerText = product.sku;
             document.getElementById("productStore").innerText = product.store.name;
-            productStore
+            document.getElementById("sellerLogo").src =
+            product.store.logo
+                ? "{{env('API_IMAGE_URL')}}/" + product.store.logo
+                : "/img/avatar.jpg";
+            document.getElementById("sellerLink").href = "/store?id=" + product.store.id;
             getIsiTable(product, product.attributes);
             loadCarouselImages(product.attributes)
         };
@@ -340,6 +368,12 @@
             console.log("UPDATED CART:", cart, JSON.stringify(cart));
 
             console.log("FINAL FORMAT:", convertCartFormat(cart));
+            
+            var modalEl = document.getElementById('editUserModal');
+            var modal = new bootstrap.Modal(modalEl);
+            modal.show();
+
+
             alert("Product ditambahkan ke keranjang")
             getTotalQty()
             sendCartToBE(convertCartFormat(cart))
@@ -528,7 +562,13 @@
             return newCart;
         }
 
-        
+        lottie.loadAnimation({
+            container: document.getElementById('lottieContainer'), // elemen container
+            renderer: 'svg',    // atau 'canvas', 'html'
+            loop: true,         // true = animasi berulang
+            autoplay: true,     // true = otomatis main
+            path: '/shopcart.json' // path ke file JSON
+        });
     </script>
     </body>
 

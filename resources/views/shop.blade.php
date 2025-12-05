@@ -50,7 +50,7 @@
                         <div class="row g-4">
                             <div class="col-xl-3">
                                 <div class="input-group w-100 mx-auto d-flex">
-                                    <input id="keyword" type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
+                                    <input id="keywordShop" type="search" class="form-control p-3" placeholder="Keywords" aria-describedby="search-icon-1">
                                     <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
                                 </div>
                             </div>
@@ -84,30 +84,7 @@
                                     <!-- Content -->
                                     <div class="collapse show" id="collapseCategories">
                                         <ul class="list-unstyled fruite-categorie" id="categoryList">
-                                            <li>
-                                                <div class="d-flex justify-content-between fruite-name">
-                                                    <a href="#"><i class="fas fa-apple-alt me-2"></i>Apples</a>
-                                                    <span>(3)</span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="d-flex justify-content-between fruite-name">
-                                                    <a href="#"><i class="fas fa-apple-alt me-2"></i>Oranges</a>
-                                                    <span>(5)</span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="d-flex justify-content-between fruite-name">
-                                                    <a href="#"><i class="fas fa-apple-alt me-2"></i>Strawbery</a>
-                                                    <span>(2)</span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="d-flex justify-content-between fruite-name">
-                                                    <a href="#"><i class="fas fa-apple-alt me-2"></i>Banana</a>
-                                                    <span>(8)</span>
-                                                </div>
-                                            </li>
+                                            
                                             <li>
                                                 <div class="d-flex justify-content-between fruite-name">
                                                     <a href="#"><i class="fas fa-apple-alt me-2"></i>Pumpkin</a>
@@ -126,69 +103,27 @@
                                 <div class="row g-4 justify-content-center" id="listProduct">
                                     <div class="col-md-6 col-lg-6 col-xl-4">
                                         <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="img/fruite-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
+                                            
+                                            <div class="fruite-img skeleton-box" style="height:200px;"></div>
+
+                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute skeleton-box"
+                                                style="top: 10px; left: 10px; width: 80px; height: 25px;"></div>
+
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>Grapes</h4>
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                                <div class="skeleton-box mb-2" style="height: 20px; width: 70%;"></div>
+                                                <div class="skeleton-box mb-3" style="height: 14px; width: 100%;"></div>
+                                                <div class="skeleton-box mb-3" style="height: 14px; width: 90%;"></div>
+
+                                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                                    <div class="skeleton-box" style="height: 20px; width: 80px;"></div>
+                                                    <div class="skeleton-box rounded-pill" style="height: 35px; width: 120px;"></div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-6 col-xl-4">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="img/fruite-item-5.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>Grapes</h4>
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-6 col-xl-4">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="img/fruite-item-2.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>Raspberries</h4>
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-6 col-xl-4">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="img/fruite-item-4.jpg" class="img-fluid w-100 rounded-top" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>Apricots</h4>
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod te incididunt</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$4.99 / kg</p>
-                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                                </div>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
+                                <div id="emptyAnimation" style="width:300px; margin:auto;"></div>
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="pagination d-flex justify-content-center mt-5" id="pagination-products"></div>
@@ -213,7 +148,89 @@
         <!-- Back to Top -->
         <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
 
-        
+        <style>
+/* Card */
+.product-card {
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    transition: 0.2s;
+}
+.product-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Image */
+.product-card img {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+}
+
+/* Category badge */
+.category-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #ffb524;
+    color: #fff;
+    padding: 2px 8px;
+    font-size: 11px;
+    border-radius: 8px;
+    max-width: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Product name */
+.product-name {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;     /* 2 baris saja */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Price */
+.product-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #e60023;
+}
+
+/* Variation text */
+.var-text {
+    font-size: 12px;
+    color: #777;
+}
+
+/* Button */
+.view-btn {
+    border-radius: 20px;
+    border: 1px solid #e5e5e5;
+    font-size: 13px;
+    padding: 6px 12px;
+}
+.skeleton-box {
+    background: linear-gradient(90deg, #e0e0e0 25%, #f8f8f8 50%, #e0e0e0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.4s ease infinite;
+    border-radius: 5px;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+</style>
     <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -224,14 +241,10 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.1/lottie.min.js"></script>
     <script type="module">
 
         import { apiFetch } from '/js/fetch.js';
-
-        // Convert php array -> json
-        // const shopData = @json($shopData);
-        // console.log(shopData);
-
         /* -------------------------------
         LOAD CATEGORIES
         -------------------------------- */
@@ -246,7 +259,6 @@
                             <a href="#" class="category-filter" data-cat="${cat.id}">
                                 <i class="fas fa-apple-alt me-2"></i>${cat.name}
                             </a>
-                            <span>(${cat.id})</span>
                         </div>
                     `;
                     categoryList.appendChild(li);
@@ -258,21 +270,6 @@
             
             
             categoryList.innerHTML = "";
-
-            // shopData.productcategory.forEach(cat => {
-            //     const li = document.createElement("li");
-            //     li.innerHTML = `
-            //         <div class="d-flex justify-content-between fruite-name" title="${cat.desc}">
-            //             <a href="#" class="category-filter" data-cat="${cat.id}">
-            //                 <i class="fas fa-apple-alt me-2"></i>${cat.name}
-            //             </a>
-            //             <span>(${cat.id})</span>
-            //         </div>
-            //     `;
-            //     categoryList.appendChild(li);
-            // });
-
-            // event click category
             
         }
         getCategories();
@@ -305,46 +302,34 @@
 
                 col.innerHTML = `
                     <a href="/shop?id=${p.id}" class="text-decoration-none text-dark">
-                        <div class="rounded position-relative fruite-item h-100 d-flex flex-column">
+                        <div class="product-card position-relative d-flex flex-column">
 
-                            <div class="fruite-img">
-                                <img 
-                                    src="${p.attributes.length > 0 
-                                        ? '{{env('API_IMAGE_URL')}}/' + p.attributes[0].image 
-                                        : '/img/featur-1.jpg'}"
-                                    class="img-fluid w-100 rounded-top"
-                                    alt="${p.name}"
-                                    style="max-height: 300px; min-height: 300px; object-fit: cover;">
+                            <div class="position-relative">
+                                <img src="${p.attributes.length > 0 
+                                    ? '{{env('API_IMAGE_URL')}}/' + p.attributes[0].image 
+                                    : '/img/featur-1.jpg'}" 
+                                alt="${p.name}">
+                                
+                                <div class="category-badge">
+                                    ${p.category?.name ?? 'Unknown'}
+                                </div>
                             </div>
 
-                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" 
-                                style="top: 10px; left: 10px;">
-                                ${p.category?.name ?? 'Unknown'}
-                            </div>
+                            <div class="p-3 d-flex flex-column flex-grow-1">
 
-                            <div class="p-4 border border-secondary border-top-0 rounded-bottom 
-                                        flex-grow-1 d-flex flex-column">
+                                <div class="product-name" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${p.name}</div>
 
-                                <div>
-                                    <h4>${p.name}</h4>
-                                    <p style="display: -webkit-box;
-                                            -webkit-line-clamp: 4;
-                                            -webkit-box-orient: vertical;
-                                            overflow: hidden;">
-                                        ${p.description ?? ""}
-                                    </p>
+                                <div class="product-price">
+                                    ${p.basic_price ? "Rp " + p.basic_price.toLocaleString('id-ID') : ""}
                                 </div>
 
-                                <div class="mt-auto">
-                                    <p class="text-dark fs-5 fw-bold mb-0">Rp. ${p.basic_price}</p>
-                                    <p class="text-muted mt-2">Variasi : ${attrText}</p>
-                                </div>
+                                <div class="var-text">Variasi: ${attrText}</div>
 
-                                <a href="/shop?id=${p.id}" 
-                                class="btn border border-secondary rounded-pill px-3 text-primary">
-                                    <i class="fa fa-eye me-2 text-primary"></i> 
-                                    View Detail
-                                </a>
+                                <div class="mt-auto pt-2">
+                                    <a href="/shop?id=${p.id}" class="btn view-btn w-100 text-primary">
+                                        <i class="fa fa-eye me-1"></i> View Detail
+                                    </a>
+                                </div>
 
                             </div>
 
@@ -404,7 +389,7 @@
         function loadPage(page = 1, cat = 0, keyword = "") {
             const url = "{{$productURL}}"
                 + "?page=" + page
-                + "&per_page=2"
+                + "&per_page=10"
                 + "&cat_id=" + cat
                 + "&search=" + keyword;
 
@@ -412,10 +397,33 @@
                 .then(result => {
                     const data = result.data.data;
                     const pg = result.data.pagination;
+                    document.getElementById("listProduct").innerHTML = "";
+                    document.getElementById('emptyAnimation').innerHTML = "";
+                    document.getElementById("pagination-products").innerHTML="";
+
+                    if(data.length==0){                        
+                        // Render Lottie animation
+                        lottie.loadAnimation({
+                            container: document.getElementById('emptyAnimation'), // elemen container
+                            renderer: 'svg',
+                            loop: true,
+                            autoplay: true,
+                            path: '/empty.json' // path ke JSON animasi
+                        });
+
+                        const textEl = document.createElement('p');
+                        textEl.innerText = "Product tidak ditemukan";
+                        textEl.style.textAlign = "center";
+                        textEl.style.marginTop = "15px";
+                        textEl.style.fontSize = "16px";
+                        textEl.style.color = "#555";
+
+                        document.getElementById('emptyAnimation').appendChild(textEl);
+                        return;
+                    }
                     getProduct(data);
-                       // ⬅ PAGINATION MUNCUL DI SINI
                     setTimeout(() => {
-                        renderPagination(pg);
+                        renderPagination(pg)
                     }, 200);
                 })
                 .catch(err => {
@@ -430,9 +438,10 @@
         -------------------------------- */
         
         document.addEventListener("DOMContentLoaded", () => {
-            loadPage(1);
+            loadPage(1,Number({{$cat??0}}),"{{$keyword}}");
+            document.getElementById("keywordShop").value="{{$keyword}}";
         })
-        document.getElementById("keyword").addEventListener("keyup", function () {
+        document.getElementById("keywordShop").addEventListener("keyup", function () {
             const keyword = this.value;
             loadPage(1, 0, keyword);  
         });

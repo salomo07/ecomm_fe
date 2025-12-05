@@ -2,25 +2,22 @@
 
 @section('profile_content')
 
-<h4 class="fw-bold mb-3">My Profile</h4>
+<h4 class="fw-bold mb-3">My Profile <td><a href="#" class="text-primary myprofile">Edit</a></td></h4>
 
 <table class="table table-borderless ">
     <tr>
         <th width="180">Name</th>
         <td id="val_name">{{ session('name') }}</td>
-        <td><a href="#" class="text-primary myprofile">Edit</a></td>
     </tr>
 
     <tr>
         <th>Email</th>
         <td id="val_email">{{ session('email') }}</td>
-        <td><a href="#" class="text-primary myprofile">Edit</a></td>
     </tr>
 
     <tr>
         <th>Phone</th>
         <td id="val_phone">{{ session('name') }}</td>
-        <td><a href="#" class="text-primary myprofile">Edit</a></td>
     </tr>
 </table>
 <div class="modal fade" id="profileModal" tabindex="-1">
@@ -74,12 +71,10 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById('inp_email').value = email;
             document.getElementById('inp_phone').value = phone;
 
-            // Tampilkan modal
-            let modal = new bootstrap.Modal(document.getElementById('profileModal'));
-            modal.show();
+            let modalProfile = new bootstrap.Modal(document.getElementById('profileModal'));
+            modalProfile.show();
         });
     });
-
 });
 </script>
 @endsection
